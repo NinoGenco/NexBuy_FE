@@ -2,9 +2,9 @@
     class="h-screen text-bluegray-200"
     style="background: linear-gradient(180deg, #525d72 0%, #69768d 100%)"
 >
-    <div class="flex justify-content-center align-items-center h-full ">
+    <div class="flex justify-content-center align-items-center h-full">
         <div
-            class="h-full text-center py-6 px-4 flex justify-content-between flex-column max-w-30rem"
+            class="h-full text-center py-6 px-4 flex justify-content-between flex-column w-30rem"
         >
             <a [routerLink]="['/']">
                 <img
@@ -13,38 +13,91 @@
                     height="45px"
                 />
             </a>
-            <div>
-                <h2 class="text-bluegray-200">Login To Your Premium Account</h2>
-                <p class="font-semibold m-0 text-bluegray-100 mb-5">
-                    You don't have an account?
-                    <a href="#" class="cursor-pointer text-white"> Sign up</a>
-                </p>
-                <input
-                    type="text"
-                    autocomplete="off"
-                    pInputText
-                    placeholder="Email"
-                    class="w-11 mb-4 text-bluegray-600 surface-ground "
-                />
-                <input
-                    type="password"
-                    autocomplete="off"
-                    pInputText
-                    placeholder="Password"
-                    class="w-11 mb-4 text-bluegray-600 surface-ground "
-                />
-                <button
-                    pButton
-                    pRipple
-                    label="LOGIN"
-                    type="button"
-                    class="w-11 "
-                ></button>
+
+            <div class="surface-card p-4 shadow-2 border-round w-full lg:w-12">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Bentornato</div>
+                    <span class="text-600 font-medium line-height-3">Non hai ancora un account?</span>
+                    <a (click)="goToRegister()" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">
+                        Registrati ora!
+                    </a>
+                </div>
+
+                <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="text-left">
+
+                    <label for="username1" class="block text-900 font-medium mb-2">Username</label>
+                    <input
+                        id="username1"
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        [(ngModel)]="dto.username"
+                        required
+                        #usernameRef="ngModel"
+                        pInputText
+                        class="w-full mb-1"
+                    />
+<!--                    <p-message severity="error" *ngIf="usernameRef.invalid && usernameRef.touched" text="Username obbligatorio"></p-message>-->
+                    <p-message
+                        *ngIf="usernameRef.invalid && usernameRef.touched"
+                        severity="error"
+                        text="Username obbligatorio"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <label for="password1" class="block text-900 font-medium mb-2 mt-3">Password</label>
+                    <p-password
+                        id="password1"
+                        name="password"
+                        placeholder="Password"
+                        [(ngModel)]="dto.password"
+                        [feedback]="false"
+                        [toggleMask]="true"
+                        required
+                        #passwordRef="ngModel"
+                        class="w-full mb-1"
+                        styleClass="w-full"
+                        inputStyleClass="w-full"
+                    />
+<!--                    <p-message severity="error" *ngIf="passwordRef.invalid && passwordRef.touched" text="Password obbligatoria"></p-message>-->
+                    <p-message
+                        *ngIf="passwordRef.invalid && passwordRef.touched"
+                        severity="error"
+                        text="Password obbligatoria"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <div class="flex align-items-center justify-content-between mb-6 mt-4">
+                        <div class="flex align-items-center">
+                            <p-checkbox
+                                id="rememberme1"
+                                [binary]="true"
+                                [(ngModel)]="dto.rememberMe"
+                                name="rememberMe"
+                                styleClass="mr-2"
+                            ></p-checkbox>
+                            <label for="rememberme1" class="text-900">Ricordami</label>
+                        </div>
+                        <!-- <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Password dimenticata?</a> -->
+                    </div>
+
+                    <button
+                        pButton
+                        pRipple
+                        label="Accedi"
+                        icon="pi pi-user"
+                        class="w-full"
+                        type="submit"
+                        [disabled]="loginForm.invalid"
+                    ></button>
+
+                </form>
             </div>
 
             <p class="font-semibold m-0 text-bluegray-200">
-                A problem? <a href="#" class="text-white">Click here</a> and let
-                us help you.
+                Qualche problema? <a href="#" class="text-white">Clicca qui</a> e permettici di aiutarti.
             </p>
         </div>
     </div>

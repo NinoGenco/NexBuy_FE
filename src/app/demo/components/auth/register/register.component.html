@@ -1,0 +1,150 @@
+<div
+    class="h-screen text-bluegray-200"
+    style="background: linear-gradient(180deg, #525d72 0%, #69768d 100%)"
+>
+    <div class="flex justify-content-center align-items-center h-full">
+        <div
+            class="h-full text-center py-6 px-4 flex justify-content-between flex-column w-30rem"
+        >
+            <a [routerLink]="['/']">
+                <img
+                    src="assets/layout/images/logo-poseidon-dark.svg"
+                    alt="poseidon-layout"
+                    height="45px"
+                />
+            </a>
+
+            <div class="surface-card p-4 shadow-2 border-round w-full lg:w-12">
+                <div class="text-center mb-5">
+                    <div class="text-900 text-3xl font-medium mb-3">Benvenuto in NexBuy</div>
+                    <span class="text-600 font-medium line-height-3">Hai già un account?</span>
+                    <a (click)="goToLogin()" class="font-medium no-underline ml-2 text-blue-500 cursor-pointer">
+                        Accedi ora!
+                    </a>
+                </div>
+
+                <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="text-left">
+
+                    <label for="firstName1" class="block text-900 font-medium mb-2">Nome</label>
+                    <input
+                        id="firstName1"
+                        name="firstName"
+                        type="text"
+                        placeholder="Nome"
+                        [(ngModel)]="dto.firstName"
+                        required
+                        #firstName1="ngModel"
+                        pInputText
+                        class="w-full mb-1"
+                    />
+                    <p-message
+                        *ngIf="firstName1.invalid && firstName1.touched"
+                        severity="error"
+                        text="Nome obbligatorio"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <label for="lastName1" class="block text-900 font-medium mb-2 mt-3">Cognome</label>
+                    <input
+                        id="lastName1"
+                        name="lastName"
+                        type="text"
+                        placeholder="Cognome"
+                        [(ngModel)]="dto.lastName"
+                        required
+                        #lastName1="ngModel"
+                        pInputText
+                        class="w-full mb-1"
+                    />
+                    <p-message
+                        *ngIf="lastName1.invalid && lastName1.touched"
+                        severity="error"
+                        text="Cognome obbligatorio"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <label for="email1" class="block text-900 font-medium mb-2 mt-3">Email</label>
+                    <input
+                        id="email1"
+                        name="email"
+                        type="email"
+                        placeholder="Email"
+                        [(ngModel)]="dto.email"
+                        required
+                        #email1="ngModel"
+                        pInputText
+                        class="w-full mb-1"
+                    />
+                    <p-message
+                        *ngIf="email1.invalid && email1.touched"
+                        severity="error"
+                        text="Email obbligatoria"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <label for="username1" class="block text-900 font-medium mb-2 mt-3">Username</label>
+                    <input
+                        id="username1"
+                        name="username"
+                        type="text"
+                        placeholder="Username"
+                        [(ngModel)]="dto.username"
+                        required
+                        #usernameRef="ngModel"
+                        pInputText
+                        class="w-full mb-1"
+                    />
+                    <p-message
+                        *ngIf="usernameRef.invalid && usernameRef.touched"
+                        severity="error"
+                        text="Username obbligatorio"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <label for="password1" class="block text-900 font-medium mb-2 mt-3">Password</label>
+                    <p-password
+                        id="password1"
+                        name="password"
+                        placeholder="Password"
+                        [(ngModel)]="dto.password"
+                        [feedback]="false"
+                        [toggleMask]="true"
+                        required
+                        #passwordRef="ngModel"
+                        class="w-full mb-1"
+                        styleClass="w-full"
+                        inputStyleClass="w-full"
+                    />
+                    <!--                    <p-message severity="error" *ngIf="passwordRef.invalid && passwordRef.touched" text="Password obbligatoria"></p-message>-->
+                    <p-message
+                        *ngIf="passwordRef.invalid && passwordRef.touched"
+                        severity="error"
+                        text="Password obbligatoria"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <button
+                        pButton
+                        pRipple
+                        label="Registrati"
+                        icon="pi pi-user"
+                        class="w-full mt-6"
+                        type="submit"
+                        [disabled]="registerForm.invalid"
+                    ></button>
+
+                </form>
+            </div>
+
+            <p class="font-semibold m-0 text-bluegray-200">
+                Qualche problema? <a href="#" class="text-white">Clicca qui</a> e permettici di aiutarti.
+            </p>
+        </div>
+    </div>
+</div>
+<app-config [minimal]="true"></app-config>

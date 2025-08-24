@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="surface-section">
+        <div class="font-medium text-3xl text-900 mb-3">Impostazioni account</div>
+        <div class="text-500 mb-5">
+            Gestisci le informazioni del tuo profilo, aggiorna i dati personali e configura le
+            preferenze del tuo account.
+        </div>
+
+        <ng-container *ngIf="(userCache$ | async) as user">
+            <ul class="list-none p-0 m-0">
+                <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                    <div class="text-500 w-6 md:w-2 font-medium">Nome</div>
+                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ user.firstName }}</div>
+                    <div class="w-6 md:w-2 flex justify-content-end">
+                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                    </div>
+                </li>
+                <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                    <div class="text-500 w-6 md:w-2 font-medium">Cognome</div>
+                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ user.lastName }}</div>
+                    <div class="w-6 md:w-2 flex justify-content-end">
+                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                    </div>
+                </li>
+                <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                    <div class="text-500 w-6 md:w-2 font-medium">Email</div>
+                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ user.email }}</div>
+                    <div class="w-6 md:w-2 flex justify-content-end">
+                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                    </div>
+                </li>
+                <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+                    <div class="text-500 w-6 md:w-2 font-medium">Ruolo</div>
+                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
+                        <p-chip label="{{ user.role }}" class="mr-2"></p-chip>
+                    </div>
+                </li>
+                <li class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap">
+                    <div class="text-500 w-6 md:w-2 font-medium">Plot</div>
+                    <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
+                        A group of professional bank robbers start to feel the heat from police
+                        when they unknowingly leave a clue at their latest heist.
+                    </div>
+                    <div class="w-6 md:w-2 flex justify-content-end">
+                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                    </div>
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+</div>

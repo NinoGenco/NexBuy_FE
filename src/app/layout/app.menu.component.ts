@@ -1,9 +1,15 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import {NgForOf, NgIf} from "@angular/common";
 
 @Component({
     selector: 'app-menu',
     templateUrl: './app.menu.component.html',
+    imports: [
+        NgForOf,
+        NgIf
+    ],
+    standalone: true
 })
 export class AppMenuComponent implements OnInit {
     model: any[] = [];
@@ -223,7 +229,7 @@ export class AppMenuComponent implements OnInit {
                         url: ['https://www.primefaces.org/primeflex/'],
                         target: '_blank',
                     },
-             
+
                 ],
             },
             {

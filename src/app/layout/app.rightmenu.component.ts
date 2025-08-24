@@ -10,6 +10,7 @@ import { LayoutService } from './service/app.layout.service';
                 .p-checkbox {
                     width: 32px;
                     height: 32px;
+
                     .p-checkbox-box {
                         width: 32px;
                         height: 32px;
@@ -33,6 +34,7 @@ import { LayoutService } from './service/app.layout.service';
             }
         `,
     ],
+    standalone: true
 })
 export class AppRightMenuComponent {
     checked1 = true;
@@ -54,12 +56,13 @@ export class AppRightMenuComponent {
     constructor(public layoutService: LayoutService) {}
 
     get rightMenuActive(): boolean {
-        return this.layoutService.state.rightMenuActive;
+        // return this.layoutService.state.rightMenuActive;
+        return false;
     }
 
     set rightMenuActive(_val: boolean) {
-        this.layoutService.state.rightMenuActive = _val;
+        // this.layoutService.state.rightMenuActive = _val;
     }
 
-   
+
 }

@@ -22,7 +22,6 @@ interface LayoutState {
     staticMenuDesktopInactive: boolean;
     configSidebarVisible: boolean;
     menuHoverActive: boolean;
-    rightMenuActive: boolean;
     topbarMenuActive: boolean;
     sidebarActive: boolean;
 }
@@ -36,19 +35,18 @@ export class LayoutService {
         inputStyle: 'outlined',
         menuMode: 'static',
         colorScheme: 'light',
-        componentTheme: 'denim',
+        componentTheme: 'cape-palliser',
         scale: 14,
         menuTheme: 'dim',
         topbarTheme: 'light',
     };
 
     state: LayoutState = {
-        staticMenuDesktopInactive: false,
+        staticMenuDesktopInactive: true,
         overlayMenuActive: false,
         configSidebarVisible: false,
         staticMenuMobileActive: false,
         menuHoverActive: false,
-        rightMenuActive: false,
         topbarMenuActive: false,
         sidebarActive: false,
     };

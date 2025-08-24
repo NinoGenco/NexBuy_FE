@@ -1,13 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LoginRoutingModule } from './login-routing.module';
-import { LoginComponent } from './login.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { FormsModule } from '@angular/forms';
-import { AppConfigModule } from 'src/app/layout/config/app.config.module';
-import { RippleModule } from 'primeng/ripple';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {LoginRoutingModule} from './login-routing.module';
+import {LoginComponent} from './login.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button';
+import {CheckboxModule} from 'primeng/checkbox';
+import {FormsModule} from '@angular/forms';
+import {AppConfigModule} from 'src/app/layout/config/app.config.module';
+import {RippleModule} from 'primeng/ripple';
+import {MessageModule} from "primeng/message";
+import {PasswordModule} from "primeng/password";
+
 
 @NgModule({
     imports: [
@@ -18,8 +21,11 @@ import { RippleModule } from 'primeng/ripple';
         CheckboxModule,
         FormsModule,
         AppConfigModule,
-        RippleModule
+        RippleModule,
+        MessageModule,
+        PasswordModule
     ],
     declarations: [LoginComponent]
 })
-export class LoginModule { }
+export class LoginModule {
+}
