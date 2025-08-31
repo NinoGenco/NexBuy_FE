@@ -45,7 +45,7 @@ const routes: Routes = [
             },
             {
                 path: 'profile',
-                data: { breadcrumb: 'User Management' },
+                data: { breadcrumb: 'Account' },
                 loadChildren: () =>
                     import('./demo/components/profile/profile.module').then(
                         (m) => m.ProfileModule

@@ -7,6 +7,8 @@ import {getClaimsFromToken} from "../utils/auth.utils";
 import {BehaviorSubject, Observable, tap} from "rxjs";
 import {ApiRoutes} from "../../config/api-routes";
 import {map} from "rxjs/operators";
+import {UpdateUserDto, UpdateUserPasswordDto} from "../dto/request/user-request.dto";
+import {MessageService} from "primeng/api";
 
 
 @Injectable({
@@ -34,23 +36,11 @@ export class UserService extends AbstractRestService<User> {
     private initSubscriptions() {
         this.authService.token$.subscribe(token => {
             this._token = token;
-            this.updateUserInfo();
+            this.retrieveUserInfo();
         })
     }
 
-    updateUserInfo() {
-        if (this._token) {
-            const username = getClaimsFromToken(this._token)?.['sub'];
-            if (username) {
-                this.getUserByUsername(username).subscribe(user => {
-                    this._userCacheSubject.next(user);
-                    console.log(user)
-                });
-            }
-        }
-    }
-
-    getUserByUsername(username: string): Observable<User> {
+    private getUserByUsername(username: string): Observable<User> {
         return this.http.get<User>(ApiRoutes.users.getByUsername(username)).pipe(
             map(data => new User(
                 data.username,
@@ -60,6 +50,33 @@ export class UserService extends AbstractRestService<User> {
                 data.role
             ))
         );
+    }
+
+    retrieveUserInfo() {
+        if (this._token) {
+            const username = getClaimsFromToken(this._token)?.['sub'];
+            if (username) {
+                this.getUserByUsername(username).subscribe(user => {
+                    this._userCacheSubject.next(user);
+                });
+            }
+        }
+    }
+
+    updateUserInfo(username: string, dto: UpdateUserDto) {
+        return this.http.put<User>(ApiRoutes.users.update(username), dto, {observe: 'response'}).pipe(
+            map(res => {
+                if (this._userCacheSubject.getValue()?.username === username) {
+                    this.getUserByUsername(username).subscribe(user => {
+                        this._userCacheSubject.next(user);
+                    });
+                }
+            })
+        );
+    }
+
+    updatePassword(username: string, dto: UpdateUserPasswordDto) {
+        return this.http.put<User>(ApiRoutes.users.updatePassword(username), dto, {observe: 'response'});
     }
 
 }

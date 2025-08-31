@@ -44,8 +44,12 @@ export class AppHeaderComponent implements OnDestroy {
     }
 
     protected onAccountSettingsButtonClicked() {
-        this.userService.updateUserInfo();
+        this.userService.retrieveUserInfo();
         void this.router.navigate(['profile/settings']);
+    }
+
+    protected onProductManagementButtonClicked() {
+        void this.router.navigate(['ecommerce/product-list']);
     }
 
     ngOnDestroy(): void {

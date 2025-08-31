@@ -449,11 +449,11 @@
                                     />
                                     <div class="flex flex-column">
                                         <span class="font-semibold">{{ user.fullName }}</span>
-                                        <span class="text-sm">{{ user.username }}</span>
+                                        <span class="text-sm">&commat;{{ user.username }}</span>
                                     </div>
                                 </div>
                             </a>
-                            <div class="layout-topbar-menu p-0 shadow-2 hidden">
+                            <div id="topbarMenu" class="layout-topbar-menu p-0 shadow-2 hidden">
                                 <ul class="list-none p-0 m-0">
                                     <li class="mb-2">
                                         <div class="flex gap-3 p-3 bg-primary-600">
@@ -471,13 +471,37 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li (click)="onAccountSettingsButtonClicked()" class="py-3 px-4 flex gap-2 cursor-pointer">
+                                    <li
+                                        class="py-3 px-4 flex gap-2 cursor-pointer"
+                                        (click)="onAccountSettingsButtonClicked()"
+                                        pStyleClass="#topbarMenu"
+                                        leaveToClass="hidden"
+                                        leaveActiveClass="fadeout"
+                                    >
                                         <a class="flex">
-                                            <i class="pi pi-cog pi-ink text-lg leading-none"></i>
+                                            <i class="pi pi-cog text-lg leading-none"></i>
                                             <span class="font-semibold mx-3 leading-none">Impostazioni account</span>
                                         </a>
                                     </li>
-                                    <li (click)="onLogoutButtonClicked()" class="py-3 px-4 flex gap-2 cursor-pointer">
+                                    <li
+                                        class="py-3 px-4 flex gap-2 cursor-pointer"
+                                        (click)="onProductManagementButtonClicked()"
+                                        pStyleClass="#topbarMenu"
+                                        leaveToClass="hidden"
+                                        leaveActiveClass="fadeout"
+                                    >
+                                        <a class="flex">
+                                            <i class="pi pi-bars text-lg leading-none"></i>
+                                            <span class="font-semibold mx-3 leading-none">Gestione prodotti</span>
+                                        </a>
+                                    </li>
+                                    <li
+                                        class="py-3 px-4 flex gap-2 cursor-pointer mb-2"
+                                        (click)="onLogoutButtonClicked()"
+                                        pStyleClass="#topbarMenu"
+                                        leaveToClass="hidden"
+                                        leaveActiveClass="fadeout"
+                                    >
                                         <a class="flex">
                                             <i class="pi pi-power-off pi-image text-lg leading-none"></i>
                                             <span class="font-semibold mx-3 leading-none">Logout</span>

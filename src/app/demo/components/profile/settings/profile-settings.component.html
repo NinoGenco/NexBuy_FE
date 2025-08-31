@@ -12,21 +12,27 @@
                     <div class="text-500 w-6 md:w-2 font-medium">Nome</div>
                     <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ user.firstName }}</div>
                     <div class="w-6 md:w-2 flex justify-content-end">
-                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                        <button pButton label="Edit" icon="pi pi-pencil"
+                                class="p-button-text"
+                                (click)="openEdit('firstName', user.firstName, 'Nome')"></button>
                     </div>
                 </li>
                 <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
                     <div class="text-500 w-6 md:w-2 font-medium">Cognome</div>
                     <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ user.lastName }}</div>
                     <div class="w-6 md:w-2 flex justify-content-end">
-                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                        <button pButton label="Edit" icon="pi pi-pencil"
+                                class="p-button-text"
+                                (click)="openEdit('lastName', user.lastName, 'Cognome')"></button>
                     </div>
                 </li>
                 <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
                     <div class="text-500 w-6 md:w-2 font-medium">Email</div>
                     <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{{ user.email }}</div>
                     <div class="w-6 md:w-2 flex justify-content-end">
-                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                        <button pButton label="Edit" icon="pi pi-pencil"
+                                class="p-button-text"
+                                (click)="openEdit('email', user.email, 'Email')"></button>
                     </div>
                 </li>
                 <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
@@ -36,16 +42,133 @@
                     </div>
                 </li>
                 <li class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap">
-                    <div class="text-500 w-6 md:w-2 font-medium">Plot</div>
+                    <div class="text-500 w-6 md:w-2 font-medium">Password</div>
                     <div class="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
-                        A group of professional bank robbers start to feel the heat from police
-                        when they unknowingly leave a clue at their latest heist.
-                    </div>
-                    <div class="w-6 md:w-2 flex justify-content-end">
-                        <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-text"></button>
+                        <button
+                            pButton
+                            type="button"
+                            label="Cambia password"
+                            icon="pi pi-lock"
+                            class="p-button-outlined"
+                            (click)="openChangePwd()"
+                        ></button>
                     </div>
                 </li>
             </ul>
+
+            <p-dialog
+                styleClass="w-25rem"
+                [(visible)]="dialogVisible"
+                [header]="'Modifica ' + editingLabel"
+                [modal]="true"
+                [draggable]="false"
+            >
+                <form [formGroup]="form"
+                      (ngSubmit)="onSave(user)"
+                      class="mt-1"
+                >
+                    <input pInputText formControlName="value" type="text" class="w-full mb-2"/>
+                    <p-message
+                        *ngIf="isInvalid()"
+                        severity="error"
+                        text="{{ firstErrorText }}"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                        [styleClass]="'flex justify-content-start border-none shadow-none text-sm'"
+                    ></p-message>
+
+                    <div class="flex justify-content-end gap-2 mt-3">
+                        <button type="button" pButton label="Annulla" class="p-button-text"
+                                (click)="onCancel()" [disabled]="saving">
+                        </button>
+
+                        <button type="submit" pButton label="Salva"
+                                [disabled]="form.invalid || saving"
+                                [loading]="saving">
+                        </button>
+                    </div>
+                </form>
+            </p-dialog>
+
+
+            <p-dialog
+                styleClass="w-30rem"
+                [(visible)]="changePwdVisible"
+                [header]="'Cambia password'"
+                [modal]="true"
+                [draggable]="false"
+                [closable]="true">
+
+                <form [formGroup]="formChangePwd"
+                      class="mt-1"
+                      (ngSubmit)="onSubmitChangePwd(user); $event.stopPropagation()"
+                      (keydown.enter)="onSubmitChangePwd(user); $event.preventDefault(); $event.stopPropagation()">
+
+                    <!-- Nuova password -->
+                    <label for="newPassword" class="block mb-1">Nuova password</label>
+                    <p-password
+                        id="newPassword"
+                        name="newPassword"
+                        formControlName="newPassword"
+                        [feedback]="false"
+                        [toggleMask]="true"
+                        required
+                        class="w-full mb-1"
+                        styleClass="w-full"
+                        inputStyleClass="w-full"
+                    />
+                    <p-message
+                        *ngIf="isInvalidNP()"
+                        severity="error"
+                        text="{{ getNpErrorText }}"
+                        styleClass="border-none shadow-none text-sm"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                    ></p-message>
+
+                    <!-- Conferma password -->
+                    <label for="confirmPassword" class="block mb-1 mt-3">Conferma password</label>
+                    <p-password
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        formControlName="confirmPassword"
+                        [feedback]="false"
+                        [toggleMask]="true"
+                        required
+                        class="w-full mb-2"
+                        styleClass="w-full"
+                        inputStyleClass="w-full"
+                    />
+                    <p-message
+                        *ngIf="formChangePwd.touched && formChangePwd.hasError('passwordMismatch')"
+                        severity="error"
+                        text="Le password non coincidono."
+                        styleClass="border-none shadow-none text-sm"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                    ></p-message>
+                    <p-message
+                        *ngIf="isInvalidCPW()" severity="error"
+                        text="{{ getCpwErrorText }}"
+                        styleClass="border-none shadow-none text-sm"
+                        [style]="{ 'margin': '0', 'padding': '0.25rem', 'background': 'transparent' }"
+                    ></p-message>
+
+                    <div class="flex justify-content-end gap-2 mt-5">
+                        <button type="button"
+                                pButton
+                                label="Annulla"
+                                class="p-button-text"
+                                (click)="closeChangePwd()" [disabled]="savingPwd">
+                        </button>
+
+                        <!-- Si lascia il submit abilitato: blocchiamo in TS se invalido -->
+                        <button type="submit"
+                                pButton
+                                label="Salva"
+                                [loading]="savingPwd"
+                                [attr.aria-disabled]="(formChangePwd.invalid || savingPwd) ? true : null">
+                        </button>
+                    </div>
+                </form>
+            </p-dialog>
         </ng-container>
     </div>
 </div>

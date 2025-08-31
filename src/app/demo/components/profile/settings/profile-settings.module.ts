@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -15,6 +15,9 @@ import {ChipModule} from "primeng/chip";
 import {NgxPermissionsModule} from "ngx-permissions";
 import {UserService} from "../../../../shared/services/user.service";
 import {Observable} from "rxjs";
+import {DialogModule} from "primeng/dialog";
+import {MessageModule} from "primeng/message";
+import {PasswordModule} from "primeng/password";
 
 @NgModule({
     imports: [
@@ -30,7 +33,11 @@ import {Observable} from "rxjs";
         InputGroupModule,
         InputGroupAddonModule,
         ChipModule,
-        NgxPermissionsModule
+        NgxPermissionsModule,
+        DialogModule,
+        ReactiveFormsModule,
+        MessageModule,
+        PasswordModule
     ],
 	declarations: [ProfileSettingsComponent]
 })

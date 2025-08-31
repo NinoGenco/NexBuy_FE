@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {LayoutService} from 'src/app/layout/service/app.layout.service';
 import {AuthService} from "../../../../shared/services/auth.service";
 import {Router} from "@angular/router";
-import {RegisterRequestDto} from "../../../../shared/dto/request/register-request.dto";
 import {MessageService} from "primeng/api";
+import {RegisterRequestDto} from "../../../../shared/dto/request/auth-request.dto";
 
 
 @Component({

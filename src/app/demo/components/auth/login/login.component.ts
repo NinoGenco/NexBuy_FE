@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { LayoutService } from 'src/app/layout/service/app.layout.service';
-import {LoginRequestDto} from "../../../../shared/dto/request/login-request.dto";
+import {Component} from '@angular/core';
 import {AuthService} from "../../../../shared/services/auth.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {LayoutService} from "../../../../layout/service/app.layout.service";
+import {LoginRequestDto} from "../../../../shared/dto/request/auth-request.dto";
 
 @Component({
     templateUrl: './login.component.html',
@@ -20,7 +20,8 @@ export class LoginComponent {
     constructor(private layoutService: LayoutService,
                 private authService: AuthService,
                 private router: Router,
-                private messageService: MessageService) {}
+                private messageService: MessageService) {
+    }
 
     get dark(): boolean {
         return this.layoutService.config().colorScheme !== 'light';

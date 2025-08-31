@@ -6,7 +6,7 @@ import {
     HttpRequest
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiRequestCustomTypes } from '../../config/api-routes';
+import {ApiRequestCustomTypes, customTypeFromUrl} from '../../config/api-routes';
 
 
 /**
@@ -29,23 +29,17 @@ export class CustomTypeInterceptor implements HttpInterceptor {
      * @returns Un Observable con la richiesta modificata (se necessario)
      */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const customType = ApiRequestCustomTypes[req.url];
+        const isJson = req.headers.get('Content-Type')?.includes('application/json') ?? true;
+        if (req.method === 'GET' || !isJson) return next.handle(req);
 
-        const isAllowedMethod = req.method === 'POST' || req.method === 'PUT';
-        const isBodyObject = req.body && typeof req.body === 'object';
+        const type = customTypeFromUrl(req.url);
+        if (!type) return next.handle(req);
 
-        if (customType && isAllowedMethod && isBodyObject) {
-            const modifiedReq = req.clone({
-                body: {
-                    ...req.body,
-                    CustomType: customType
-                }
-            });
+        const body = (req.body && typeof req.body === 'object')
+            ? { ...req.body, CustomType: type }
+            : req.body;
 
-            return next.handle(modifiedReq);
-        }
-
-        return next.handle(req);
+        return next.handle(req.clone({ body }));
     }
 
 }

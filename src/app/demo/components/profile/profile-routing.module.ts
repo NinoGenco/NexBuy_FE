@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
     imports: [RouterModule.forChild([
         {
             path: 'settings',
-            data: {breadcrumb: 'Settings'},
+            data: {breadcrumb: 'Impostazioni'},
             loadChildren: () => import('./settings/profile-settings.module').then(m => m.ProfileSettingsModule)
         }, {
             path: 'list',

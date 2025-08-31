@@ -2,12 +2,10 @@ import {BehaviorSubject, Observable, tap} from "rxjs";
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
-import {AuthResponseDto} from "../dto/response/auth-response.dto";
+import {AuthResponseDto} from "../dto/response/auth/auth-response.dto";
 import {ApiRoutes} from "../../config/api-routes";
 import {NgxPermissionsService} from "ngx-permissions";
-import {LoginRequestDto} from "../dto/request/login-request.dto";
-import {RegisterRequestDto} from "../dto/request/register-request.dto";
-import {User} from "../models/user.model";
+import {LoginRequestDto, RegisterRequestDto} from "../dto/request/auth-request.dto";
 
 
 /**
@@ -28,6 +26,10 @@ export class AuthService {
     /** Observable pubblico per monitorare l'utente autenticato */
     public readonly token$: Observable<string | null>;
 
+    /** Restituisce il token JWT corrente salvato nel localStorage. */
+    get token(): string | null {
+        return localStorage.getItem(this.tokenKey);
+    }
 
     constructor(
         private http: HttpClient,
@@ -96,14 +98,6 @@ export class AuthService {
                 this._forceLocalLogout(); // fallback locale
             }
         });
-    }
-
-
-    /**
-     * Restituisce il token JWT corrente salvato nel localStorage.
-     */
-    get token(): string | null {
-        return localStorage.getItem(this.tokenKey);
     }
 
     // -------------------------------------------------------------------------------------------------------------------

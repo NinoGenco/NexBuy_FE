@@ -9,6 +9,7 @@ import {HttpErrorInterceptor} from "./core/interceptors/http-error.interceptor";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
 import {CustomTypeInterceptor} from "./core/interceptors/custom-type.interceptor";
+import {AuthInterceptor} from "./core/interceptors/auth.interceptor";
 
 
 @NgModule({
@@ -24,6 +25,10 @@ import {CustomTypeInterceptor} from "./core/interceptors/custom-type.interceptor
     ],
     providers: [
         {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }, {
             provide: LocationStrategy,
             useClass: PathLocationStrategy
         }, {
