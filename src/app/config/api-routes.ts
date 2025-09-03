@@ -19,6 +19,13 @@ export const ApiTemplates = {
         update: '/user/update/:username',
         updatePassword: '/user/update-password/:username',
     },
+    products: {
+        one: '/product/:id',
+        all: '/product',
+        create: '/product/create',
+        update: '/product/update/:id',
+        delete: '/product/delete/:id',
+    }
 } as const;
 
 const allTemplates: string[] = Object.values(ApiTemplates)
@@ -38,6 +45,13 @@ export const ApiRoutes = {
         update: (username: string) => buildUrl(ApiTemplates.users.update, {username}),
         updatePassword: (username: string) => buildUrl(ApiTemplates.users.updatePassword, {username}),
     },
+    products: {
+        one: (id: string | number) => buildUrl(ApiTemplates.products.one, {id}),
+        all: () => withPrefix(ApiTemplates.products.all),
+        create: () => withPrefix(ApiTemplates.products.create),
+        update: (id: number) => buildUrl(ApiTemplates.products.update, {id}),
+        delete: (id: number) => buildUrl(ApiTemplates.products.delete, {id}),
+    }
 } as const;
 
 
@@ -57,6 +71,8 @@ export const ApiRequestCustomTypes: Partial<Record<string, string>> = {
     [ApiTemplates.auth.login]: 'authentication',
     [ApiTemplates.users.update]: 'update_user',
     [ApiTemplates.users.updatePassword]: 'update_password',
+    [ApiTemplates.products.create]: 'create_product',
+    [ApiTemplates.products.update]: 'update_product',
 }
 
 const compiledTemplates = allTemplates.map(tpl => ({ tpl, re: patternFromTemplate(tpl) }));

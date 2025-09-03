@@ -8,13 +8,12 @@ import {BehaviorSubject, Observable, tap} from "rxjs";
 import {ApiRoutes} from "../../config/api-routes";
 import {map} from "rxjs/operators";
 import {UpdateUserDto, UpdateUserPasswordDto} from "../dto/request/user-request.dto";
-import {MessageService} from "primeng/api";
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class UserService extends AbstractRestService<User> {
+export class UserService extends AbstractRestService<User, UpdateUserDto | UpdateUserPasswordDto> {
 
     private _token: string | null;
 
@@ -23,7 +22,7 @@ export class UserService extends AbstractRestService<User> {
 
     constructor(private http: HttpClient,
                 private authService: AuthService) {
-        super(http, '/api/users');
+        super(http);
 
         this._token = null;
         this._userCacheSubject = new BehaviorSubject<User | null>(null);
